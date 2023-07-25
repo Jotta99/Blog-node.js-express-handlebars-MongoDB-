@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="fundo">
@@ -46,22 +47,6 @@
             </tr>
         </div>
     </table>
-    <script>
-        function insert(num)
-        {
-            var numero = document.getElementById('resultado').innerHTML;
-            document.getElementById('resultado').innerHTML = numero + num;
-        }
-        function clean()
-        {
-            document.getElementById('resultado').innerHTML = "";
-        }
-        function back ()
-        {
-            var resultado = document.getElementById('resultado').innerHTML;
-            document.getElementById('resultado').innerHTML = resultado.substring(0, resultado.length -1)
-        }
-    </script>
     </div>
 </body>
 </html>
