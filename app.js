@@ -17,8 +17,11 @@ const path = require('path')
 
     // Mongoose
 
-// Rotas
+    // Public
+    app.use(express.static(path.join(__dirname, 'public')))
 
+
+// Rotas
 app.get('/', (req, res)=>{
     res.send('Home Page')
 })
