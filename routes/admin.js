@@ -23,13 +23,13 @@ router.get('/categorias/add', (req, res)=>{
 })
 
 router.post('/categorias/nova', (req, res)=>{
-    res.send("Foi!")
     const novaCategoria = {
         nome: req.body.nome,
         slug: req.body.slug,
     }
     new Categoria (novaCategoria).save()
     .then(()=>{
+        res.send("Categoria salva com sucesso! :)")
         console.log(`Categoria salva com sucesso! :)`)
     })
     .catch((err)=>{
