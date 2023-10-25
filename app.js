@@ -16,10 +16,16 @@ const path = require('path')
     app.set('view engine', 'handlebars');
 
     // Mongoose
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://localhost/blogapp')
+    .then(()=>{
+        console.log('Conectado ao banco de dados')
+    }).catch((err)=>{
+        console.log(`Erro ao conectar ao banco de dados: ${err}`)
+    })
 
     // Public
     app.use(express.static(path.join(__dirname, 'public')))
-
 
 // Rotas
 app.get('/', (req, res)=>{
@@ -30,5 +36,5 @@ app.use('/admin', admin)
 
 // Outros
 app.listen(PORT, ()=>{
-    console.log(`A aplicação está rodando em: http://localhost:${PORT}`)
+    console.log(`A Servidor está rodando em: http://localhost:${PORT}`)
 })
