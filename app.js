@@ -33,7 +33,10 @@ const flash = require('connect-flash')
 
     // Mongoose
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/blogapp')
+    mongoose.connect('mongodb://localhost/blogapp', {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true
+    })
     .then(()=>{
         console.log('Conectado ao banco de dados')
     }).catch((err)=>{

@@ -14,8 +14,10 @@ router.get('/posts', (req, res)=>{
     res.send('Página de posts')
 })
 
-router.get('/categorias', (req, res)=>{
-    res.render('admin/categorias')
+router.get('/categorias', (req, res) => {
+    Categoria.find().sort({date: 'desc'}).lean().then((categorias) => {
+        res.render('admin/categorias', {categorias: categorias})
+    })
 })
 
 router.get('/categorias/add', (req, res)=>{
@@ -60,5 +62,8 @@ router.post('/categorias/nova', (req, res)=>{
 
 })
 
+router.get('/categorias/edit/:id', (req, res) =>{
+    res.render('admin/editcategoria')
+})
 
 module.exports = router;
