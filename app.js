@@ -48,7 +48,7 @@ const flash = require('connect-flash')
 
 // Rotas
 app.get('/', (req, res)=>{
-    res.send('Home Page')
+    res.render('admin/homepage')
 })
 
 app.use('/admin', admin)
