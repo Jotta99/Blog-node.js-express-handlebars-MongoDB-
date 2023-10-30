@@ -1,17 +1,19 @@
 {{msg_success}}
 
+
 <h2>Lista de Categorias</h2>
 <hr>
 <a href="/admin/categorias/add"><button class="btn btn-outline-success">Nova categoria</button></a>
 
 {{#each categorias}}
+
     <div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded">
         <div class="card-body">
             <h4>{{nome}}</h4>
             <small><strong>Slug: </strong> {{slug}}</small>
             <br>
             <small><strong>Data de criação:</strong> {{date}}</small>
-            <a href="/categorias/edit/{{_id}}"><button type="button" class="btn btn-light">Editar</button></a>
+            <a href="/admin/categorias/edit/{{_id}}"><button type="button" class="btn btn-light">Editar</button></a>
             <a href=""><button type="button" class="btn btn-danger">Apagar</button></a>
         </div>
     </div>
