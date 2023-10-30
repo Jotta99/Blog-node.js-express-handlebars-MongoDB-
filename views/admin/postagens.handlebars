@@ -1,6 +1,24 @@
 {{msg_success}}
 
-
 <h2>Postagens</h2>
 <hr>
 <a href="/admin/postagens/add"><button class="btn btn-outline-success">Nova Postagem</button></a>
+
+{{#each postagens}}
+
+    <div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded">
+        <div class="card-body">
+            <h4>{{titulo}}</h4>
+            <small><strong>Descrição: </strong> {{descricao}}</small>
+            <br>
+            <small><strong>Data de criação:</strong> {{date}}</small>
+            <br>
+            <small><strong>Categoria:</strong> {{categoria}}</small>
+            <a href=""><button type="button" class="btn btn-light">Editar</button></a>
+            <a href=""><button type="button" class="btn btn-danger">Apagar</button></a>
+        </div>
+    </div>
+    
+{{else}}
+
+{{/each}}

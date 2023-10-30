@@ -5,6 +5,8 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../models/Categoria')
 const Categoria = mongoose.model('categorias')
+require('../models/Postagem')
+const Postagem = mongoose.model('postagens')
 
 router.get('/', (req, res)=>{
     res.render('admin/index')
@@ -101,10 +103,6 @@ router.get('/categorias/delete/:id', (req, res) =>{
 
 // Posts Routers
 
-router.get('/postagens', (req, res) =>{
-    res.render('admin/postagens')
-})
-
 router.get('/postagens/add', (req, res) =>{
     Categoria.find().lean().then((categorias)=>{
         res.render('admin/addpostagem', {categorias: categorias})
@@ -147,6 +145,10 @@ router.post('/postagens/nova', (req, res)=>{
         erros.push({texto: 'Mínimo de caracteres do conteúdo: 20'})
     }
 
+    if(req.body.categoria === 0){
+        erros.push({texto: 'Categoria inválida, registre uma categoria'})
+    }
+
     if(erros.length > 0){
         res.render('admin/addpostagem', {erros: erros})
     }
@@ -154,10 +156,10 @@ router.post('/postagens/nova', (req, res)=>{
     else{
         const novaPostagem = {
             titulo: req.body.titulo,
-            slug: req.body.slug,
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
-            categoria: req.body.categoria
+            categoria: req.body.categoria,
+            slug: req.body.slug
         }
         new Postagem (novaPostagem).save()
         .then(()=>{
@@ -170,6 +172,12 @@ router.post('/postagens/nova', (req, res)=>{
             res.redirect('/admin/addpostagem')
         })
     }
+})
+
+router.get('/postagens', (req, res) => {
+    Postagem.find().lean().populate('categoria').sort({date: 'desc'}).then((postagens) => {
+        res.render('admin/postagens', {postagens: postagens})
+    })
 })
 
 module.exports = router;
