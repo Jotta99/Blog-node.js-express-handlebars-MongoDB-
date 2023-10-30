@@ -175,7 +175,7 @@ router.post('/postagens/nova', (req, res)=>{
 })
 
 router.get('/postagens', (req, res) => {
-    Postagem.find().lean().populate('categoria').sort({date: 'desc'}).then((postagens) => {
+    Postagem.find().populate('categoria').lean().sort({date: 'desc'}).then((postagens) => {
         res.render('admin/postagens', {postagens: postagens})
     })
 })
