@@ -26,6 +26,10 @@ const Postagem = new Schema({
     date: {
         type: Date,
         default: Date.now(),
+    },
+    file: {
+        data: Buffer,
+        contentType: String,
     }
 })
 

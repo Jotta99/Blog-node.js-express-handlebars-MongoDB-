@@ -141,6 +141,10 @@ router.post('/postagens/nova', (req, res)=>{
         erros.push({texto: 'Conteúdo inválido'})
     }
 
+    if(!req.body.file || typeof req.body.file === undefined || req.body.file === null){
+        erros.push({texto: 'Selecione uma imagem para a categoria'})
+    }
+
     if(req.body.conteudo.length < 20){
         erros.push({texto: 'Mínimo de caracteres do conteúdo: 20'})
     }
@@ -159,7 +163,8 @@ router.post('/postagens/nova', (req, res)=>{
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
             categoria: req.body.categoria,
-            slug: req.body.slug
+            slug: req.body.slug,
+            file: req.body.file
         }
         new Postagem (novaPostagem).save()
         .then(()=>{

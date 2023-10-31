@@ -7,6 +7,7 @@ const admin = require('./routes/admin') // Importando arquivo de rotas admin
 const path = require('path')
 const session = require('express-session')
 const flash = require('connect-flash')
+const multer = require('multer')
 
 // Configs
     // Session
@@ -27,6 +28,10 @@ const flash = require('connect-flash')
     app.use(express.urlencoded({extended:true}))
     app.use(express.json());
 
+    // Multer
+    const storage = multer.memoryStorage();
+    const upload = multer({ storage: storage });
+    
     // Handlebars
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main',
         runtimeOptions: {
