@@ -184,24 +184,35 @@ router.get('/postagens', (req, res) => {
 })
 
 router.get('/postagens/edit/:id', (req, res)=>{
-    res.render('admin/editpostagens')
+    Postagem.findOne({_id: req.params.id}).then((postagem)=>{
+        Categoria.find().then((categorias)=>{
+            res.render('admin/editpostagens', {categorias: categorias, postagem: postagem})
+        }).catch(()=>{
+            req.flash('error_msg', 'Houve um erro ao buscar categorias')
+            res.redirect('/admin/postagens')
+        })
+    }).catch((err)=>{
+        req.flash('Ocorreu um erro ao carregar ')
+    })
+
 })
 
 router.post('/postagens/edit', (req, res) => {
-    var filter = { _id: req.body.id }
-    var update = { 
-        titulo: req.body.titulo,
-        descricao: req.body.descricao,
-        conteudo: req.body.conteudo,
-        categoria: req.body.categoria,
-        slug: req.body.slug
-    }
-
-    Postagem.findOneAndUpdate(filter, update).lean().then(() => {
-        req.flash("success_msg", "Postagem Atualizado")
+    Postagem.findOne({_id: req.body.id}).then((postagem)=>{
+        
+        postagem.nome = req.body.nome
+        postagem.slug = req.body.slug
+        
+        postagem.save().then(()=>{
+            req.flash('success_msg', 'Categoria editada com sucesso!')
+            res.redirect('/admin/postagens')            
+        }).catch((err)=>{
+            req.flash('error_msg', 'Houve um erro interno ao salvar a edição da categoria')
+            res.redirect('/admin/postagens')
+        })
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro ao editar essa categoria')
         res.redirect('/admin/postagens')
-    }).catch(err => {
-        req.flash("error_msg", "Erro ao atualizar Postagem")
     })
 })
 

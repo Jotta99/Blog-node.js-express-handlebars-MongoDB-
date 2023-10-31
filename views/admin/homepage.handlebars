@@ -1,0 +1,41 @@
+<h4>Últimas Postagens</h4>
+
+{{#each postagens}}
+
+<div class="card mt-4">
+  <img src="https://www.jornalbomdia.com.br/tb_noticias/760/economia-mundial.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">{{titulo}}</h5>
+    <p class="card-text placeholder-glow">{{descricao}}</p>
+    <a href="#" class="btn btn-dark">Ver Postagem</a>
+  </div>
+</div>
+<style>
+    div img:hover{
+        scale: 98% !important;
+        transition: all 0.3s !important;
+    }
+</style>
+
+{{else}}
+
+{{/each}}
+
+<h4 class="mt-4">Categorias</h4>
+
+{{#each categorias}}
+
+    <div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded">
+        <div class="card-body">
+            <h4>{{nome}}</h4>
+            <small><strong>Slug: </strong> {{slug}}</small>
+            <br>
+            <small><strong>Data de criação:</strong> {{date}}</small>
+            <br>
+            <a href="#" class="btn btn-dark mt-4">Ver Categoria</a>
+        </div>
+    </div>
+    
+{{else}}
+
+{{/each}}

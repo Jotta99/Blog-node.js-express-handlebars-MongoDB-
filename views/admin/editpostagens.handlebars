@@ -9,13 +9,13 @@
     <div class="card-body">
         <form action="/admin/postagens/edit" method="POST" >
             <label for="titulo" class="form-label">Título: </label>
-            <input class="form-control form-control-md" type="text" type="text" id="titulo" name="titulo" placeholder="{{postagem.titulo}}">
+            <input class="form-control form-control-md" type="text" type="text" id="titulo" name="titulo" value="{{postagem.titulo}}">
             <label for="slug" class="form-label">Slug: </label>
-            <input class="form-control form-control-md" type="text" type="text" id="slug" name="slug" placeholder="Slug da Postagem">
+            <input class="form-control form-control-md" type="text" type="text" id="slug" name="slug" value="{{postagem.slug}}">
             <label for="descricao" class="form-label">Descrição: </label>
-            <input class="form-control form-control-md" type="text" type="text" id="descricao" name="descricao" placeholder="Descrição da Postagem">
+            <input class="form-control form-control-md" type="text" type="text" id="descricao" name="descricao" value="{{postagem.descricao}}">
             <label for="conteudo" class="form-label">Conteúdo:</label>
-            <textarea class="form-control" placeholder="Conteúdo da Postagem" id="conteudo" name="conteudo" style="height: 100px"></textarea>
+            <textarea class="form-control" id="conteudo" name="conteudo" style="height: 100px">{{postagem.conteudo}}</textarea>
             <label for="categoria" class="form-label">Salvar Post na Categoria:</label>
             <select class="form-select" name="categoria">
                 {{#each categorias}}
