@@ -175,8 +175,33 @@ router.post('/postagens/nova', (req, res)=>{
 })
 
 router.get('/postagens', (req, res) => {
-    Postagem.find().populate('categoria').lean().sort({date: 'desc'}).then((postagens) => {
-        res.render('admin/postagens', {postagens: postagens})
+    Postagem.find().lean().populate({path: 'categorias', strictPopulate: false}).sort({data: "desc"}).then((postagens) => {
+        res.render("admin/postagens", {postagens: postagens})
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro ao listar as postagens, Erro: " + err)
+        res.redirect("/admin")
+    })
+})
+
+router.get('/postagens/edit/:id', (req, res)=>{
+    res.render('admin/editpostagens')
+})
+
+router.post('/postagens/edit', (req, res) => {
+    var filter = { _id: req.body.id }
+    var update = { 
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        conteudo: req.body.conteudo,
+        categoria: req.body.categoria,
+        slug: req.body.slug
+    }
+
+    Postagem.findOneAndUpdate(filter, update).lean().then(() => {
+        req.flash("success_msg", "Postagem Atualizado")
+        res.redirect('/admin/postagens')
+    }).catch(err => {
+        req.flash("error_msg", "Erro ao atualizar Postagem")
     })
 })
 

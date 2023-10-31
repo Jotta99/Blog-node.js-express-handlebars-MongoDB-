@@ -17,7 +17,7 @@
             <label for="conteudo" class="form-label">Conteúdo:</label>
             <textarea class="form-control" placeholder="Conteúdo da Postagem" id="conteudo" name="conteudo" style="height: 100px"></textarea>
             <label for="categoria" class="form-label">Salvar Post na Categoria:</label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" name="categoria">
                 {{#each categorias}}
                     <option value="{{_id}}">{{nome}}</option>
                 {{else}}
