@@ -17,7 +17,7 @@ router.get('/posts', (req, res)=>{
 })
 
 router.get('/categorias', (req, res) => {
-    Categoria.find().sort({date: 'desc'}).lean().then((categorias) => {
+    Categoria.find().lean().sort({date: 'desc'}).then((categorias) => {
         res.render('admin/categorias', {categorias: categorias})
     })
 })
@@ -175,7 +175,7 @@ router.post('/postagens/nova', (req, res)=>{
 })
 
 router.get('/postagens', (req, res) => {
-    Postagem.find().lean().populate({path: 'categorias', strictPopulate: false}).sort({data: "desc"}).then((postagens) => {
+    Postagem.find().lean().populate({path: 'categorias', strictPopulate: false}).sort({date: "desc"}).then((postagens) => {
         res.render("admin/postagens", {postagens: postagens})
     }).catch((err) => {
         req.flash("error_msg", "Houve um erro ao listar as postagens, Erro: " + err)
