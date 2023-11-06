@@ -27,10 +27,6 @@ const Postagem = new Schema({
         type: Date,
         default: Date.now(),
     },
-    file: {
-        data: Buffer,
-        contentType: String,
-    }
 })
 
 mongoose.model('postagens', Postagem)

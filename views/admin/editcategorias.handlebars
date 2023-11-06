@@ -7,7 +7,7 @@
 <h3>Editar categoria</h3>
 <div class="card">
     <div class="card-body">
-        <form action="/admin/categorias/edit" method="POST" >
+        <form action="/admin/categorias/edit" method="POST" class="needs-validation">
         <input type="hidden" name="id" value="{{categoria._id}}">
         <label for="nome" class="form-label">Nome: </label>
         <input class="form-control form-control-md" type="text" type="text" id="nome" name="nome" placeholder="Nome da categoria" value="{{categoria.nome}}">

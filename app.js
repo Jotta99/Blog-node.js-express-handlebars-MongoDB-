@@ -55,6 +55,7 @@ const multer = require('multer')
 
     require('./models/Categoria')
     const Categoria = mongoose.model('categorias')
+    
     require('./models/Postagem')
     const Postagem = mongoose.model('postagens')
 

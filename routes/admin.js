@@ -141,10 +141,6 @@ router.post('/postagens/nova', (req, res)=>{
         erros.push({texto: 'Conteúdo inválido'})
     }
 
-    if(!req.body.file || typeof req.body.file === undefined || req.body.file === null){
-        erros.push({texto: 'Selecione uma imagem para a categoria'})
-    }
-
     if(req.body.conteudo.length < 20){
         erros.push({texto: 'Mínimo de caracteres do conteúdo: 20'})
     }
@@ -164,7 +160,6 @@ router.post('/postagens/nova', (req, res)=>{
             conteudo: req.body.conteudo,
             categoria: req.body.categoria,
             slug: req.body.slug,
-            file: req.body.file
         }
         new Postagem (novaPostagem).save()
         .then(()=>{
@@ -205,7 +200,7 @@ router.get('/postagens/edit/:id', (req, res)=>{
 router.post('/postagens/edit', (req, res) => {
     Postagem.findOne({_id: req.body.id}).then((postagem)=>{
         
-        postagem.nome = req.body.nome
+        postagem.titulo = req.body.titulo
         postagem.slug = req.body.slug
         
         postagem.save().then(()=>{
@@ -218,6 +213,25 @@ router.post('/postagens/edit', (req, res) => {
     }).catch((err)=>{
         req.flash('error_msg', 'Houve um erro ao editar essa categoria')
         res.redirect('/admin/postagens')
+    })
+})
+
+router.get('/postagens/delete/:id', (req, res) =>{
+    Postagem.findOneAndDelete({_id: req.params.id}).lean().then((postagem)=>{
+        req.flash('success_msg', 'Sucesso ao deletar postagem')
+        res.redirect('/admin/postagens')
+    }).catch((err)=>{
+        req.flash('error_msg', 'Erro ao deletar postagem')
+        res.redirect('/admin/postagens')
+    })
+})
+
+router.get('/postagem/:id', (req, res) =>{
+    Postagem.findOne({_id: req.params.id}).lean().then((postagem) =>{
+        res.render('admin/postagempage', {postagem: postagem})
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro ao abrir esta categoria')
+        res.redirect('/')
     })
 })
 
