@@ -79,6 +79,35 @@ app.get('/', (req, res)=>{
     })
 })
 
+app.get('/categorias', (req, res) => 
+    Categoria.find().then((categorias)=>{
+        res.render('admin/categorias/index', {categorias: categorias})
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro interno ao listar as categorias')
+        res.redirect('/')
+    }))
+
+app.get('/categorias/:id', (req, res) => {
+    Categoria.findOne({_id: req.params.id}).then((categoria) => {
+        if(categoria){
+            Postagem.find({categoria: categoria._id}).then((postagens)=>{
+                res.render('admin/categorias/postagenspage', {postagens: postagens, categoria: categoria})
+            })
+            .catch((err)=>{
+                req.flash('error_msg', 'Houve um erro ao listar os posts!')
+                res.redirect('/categorias')
+            })
+        }
+        else{
+            req.flash('error_msg', 'Esta categoria não existe')
+            res.redirect('/categorias')
+        }
+    }).catch((err)=>{
+        req.flash('error_msg', 'Esta categoria não existe')
+        res.redirect('/categorias')
+    })
+})
+
 app.use('/admin', admin)
 
 // Outros

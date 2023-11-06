@@ -1,0 +1,14 @@
+{{msg_success}}
+
+<h2>Categorias</h2>
+<hr>
+
+{{#each categorias}}
+
+<div class="list-group mt-2">
+  <a href="/categorias/{{_id}}" class="list-group-item list-group-item-action">{{nome}}</a>
+</div>
+
+{{else}}
+
+{{/each}}
