@@ -7,6 +7,8 @@ require('../models/Categoria')
 const Categoria = mongoose.model('categorias')
 require('../models/Postagem')
 const Postagem = mongoose.model('postagens')
+require('../models/Usuario')
+const Usuario = mongoose.model('usuarios')
 
 router.get('/', (req, res)=>{
     res.render('admin/index')
@@ -14,6 +16,12 @@ router.get('/', (req, res)=>{
 
 router.get('/posts', (req, res)=>{
     res.send('Página de posts')
+})
+
+router.get('/usuarios', (req, res) => {
+    Usuario.find().lean().sort({date: 'desc'}).then((usuarios) => {
+        res.render('admin/usuarios', {usuarios: usuarios})
+    })
 })
 
 router.get('/categorias', (req, res) => {
