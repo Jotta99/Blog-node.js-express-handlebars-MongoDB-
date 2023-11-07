@@ -112,7 +112,7 @@ app.get('/categorias/:id', (req, res) => {
     })
 })
 
-app.get('/postagens', (req, res) => 
+app.get('/postagens', (req, res) =>
     Postagem.find().then((postagens)=>{
         res.render('postagens/index', {postagens: postagens})
     }).catch((err)=>{
@@ -128,24 +128,16 @@ app.post('/formulariosignup/novouser', (req, res)=>{
 
     var erros = []
 
-    if(!req.body.nome || typeof req.body.nome === undefined || req.body.nome === null){
-        erros.push({texto: 'Nome inválido'})
+    if(req.body.nome.length < 6 || !req.body.nome || typeof req.body.nome == undefined || req.body.nome == null){
+        erros.push({texto: 'Nome inválido. Mínimo de caracteres: 6'})
     }
 
-    if(req.body.nome.length < 6){
-        erros.push({texto: 'Mínimo de caracteres: 6'})
-    }
-
-    if(!req.body.email || typeof req.body.email === undefined || req.body.email === null){
+    if(!req.body.email || typeof req.body.email == undefined || req.body.email == null){
         erros.push({texto: 'Email inválido'})
     }
 
-    if(!req.body.senha || typeof req.body.senha === undefined || req.body.senha === null){
-        erros.push({texto: 'Senha inválida'})
-    }
-
-    if(req.body.senha.length < 5){
-        erros.push({texto: 'Senha muito pequena, Mínimo de caracteres: 6'})
+    if(req.body.senha.length < 5 || !req.body.senha || typeof req.body.senha == undefined || req.body.senha == null){
+        erros.push({texto: 'Senha inválida. Mínimo de caracteres: 6'})
     }
 
     if(erros.length > 0){
