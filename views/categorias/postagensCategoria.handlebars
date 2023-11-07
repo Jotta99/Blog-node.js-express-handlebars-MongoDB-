@@ -3,11 +3,13 @@
 
 {{#each postagens}}
 
-<div class="card mt-4">
+<div class="card mt-4" style="width: 30rem;">
   <img src="https://www.jornalbomdia.com.br/tb_noticias/760/economia-mundial.jpg" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title placeholder-glow">{{titulo}}</h5>
     <p class="card-text placeholder-glow">{{descricao}}</p>
+    <hr>
+    <small>Data de criação: {{date}}</small>
     <hr>
     <a href="/admin/postagem/{{_id}}" class="btn btn-dark">Ver Postagem</a>
   </div>
