@@ -66,22 +66,22 @@ const multer = require('multer')
 app.get('/', (req, res)=>{
     Postagem.find().lean().populate({path: 'categorias', strictPopulate: false}).sort({date: "desc"}).then((postagens) => {
 
-        Categoria.findOne().lean().sort({date: "desc"}).then((categorias) => {
+        Categoria.find().lean().sort({date: "desc"}).then((categorias) => {
             res.render("admin/homepage", {postagens: postagens, categorias: categorias})
         }).catch((err) => {
             req.flash("error_msg", "Houve um erro ao listar as postagens, Erro: " + err)
-            res.redirect("/admin")
+            res.redirect("/")
         })
 
     }).catch((err) => {
         req.flash("error_msg", "Houve um erro ao listar as postagens, Erro: " + err)
-        res.redirect("/admin")
+        res.redirect("/")
     })
 })
 
 app.get('/categorias', (req, res) => 
     Categoria.find().then((categorias)=>{
-        res.render('admin/categorias/index', {categorias: categorias})
+        res.render('categorias/index', {categorias: categorias})
     }).catch((err)=>{
         req.flash('error_msg', 'Houve um erro interno ao listar as categorias')
         res.redirect('/')
@@ -91,7 +91,7 @@ app.get('/categorias/:id', (req, res) => {
     Categoria.findOne({_id: req.params.id}).then((categoria) => {
         if(categoria){
             Postagem.find({categoria: categoria._id}).then((postagens)=>{
-                res.render('admin/categorias/postagenspage', {postagens: postagens, categoria: categoria})
+                res.render('categorias/postagensCategoria', {postagens: postagens, categoria: categoria})
             })
             .catch((err)=>{
                 req.flash('error_msg', 'Houve um erro ao listar os posts!')
@@ -107,6 +107,18 @@ app.get('/categorias/:id', (req, res) => {
         res.redirect('/categorias')
     })
 })
+
+app.get('/postagens', (req, res) => 
+    Postagem.find().then((postagens)=>{
+        res.render('postagens/index', {postagens: postagens})
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro interno ao listar as postagens' + err)
+        res.redirect('/')
+}))
+
+app.get('/formulariosignup', (req, res) =>
+    res.render('contas/formularioSignUp')
+)
 
 app.use('/admin', admin)
 
