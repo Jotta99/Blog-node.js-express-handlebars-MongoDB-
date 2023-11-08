@@ -71,7 +71,7 @@ app.get('/', (req, res)=>{
     Postagem.find().lean().populate({path: 'categorias', strictPopulate: false}).sort({date: "desc"}).then((postagens) => {
 
         Categoria.find().lean().sort({date: "desc"}).then((categorias) => {
-            res.render("admin/homepage", {postagens: postagens, categorias: categorias})
+            res.render("homepage/homepage", {postagens: postagens, categorias: categorias})
         }).catch((err) => {
             req.flash("error_msg", "Houve um erro ao listar as postagens, Erro: " + err)
             res.redirect("/")
@@ -119,6 +119,16 @@ app.get('/postagens', (req, res) =>
         req.flash('error_msg', 'Houve um erro interno ao listar as postagens' + err)
         res.redirect('/')
 }))
+
+app.get('/postagem/:id', (req, res) =>{
+    Postagem.findOne({_id: req.params.id}).lean().then((postagem) =>{
+        res.render('postagens/postagempage', {postagem: postagem})
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro ao abrir esta categoria')
+        res.redirect('/')
+    })
+})
+
 
 app.get('/formulariosignup', (req, res) =>
     res.render('contas/formularioSignUp')

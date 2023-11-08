@@ -234,13 +234,4 @@ router.get('/postagens/delete/:id', (req, res) =>{
     })
 })
 
-router.get('/postagem/:id', (req, res) =>{
-    Postagem.findOne({_id: req.params.id}).lean().then((postagem) =>{
-        res.render('admin/postagempage', {postagem: postagem})
-    }).catch((err)=>{
-        req.flash('error_msg', 'Houve um erro ao abrir esta categoria')
-        res.redirect('/')
-    })
-})
-
 module.exports = router;
