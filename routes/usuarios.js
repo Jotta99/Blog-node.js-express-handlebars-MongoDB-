@@ -1,18 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+
+// Model Config
 require('../models/Usuario')
 const Usuario = mongoose.model('usuarios')
 
+// Rotas
 router.get('/registro', (req, res) =>
     res.render('usuarios/registro')
 )
 
 router.post('/registro/novo', (req, res)=>{
-
-    Usuario.findOne({nome: req.body.nome}).then((usuarios)=>{
-        erros.push({texto: 'Já existe um usuário cadastrado com esse nome!'})
-    }).catch((err)=>{
 
     var erros = []
 
@@ -35,29 +35,50 @@ router.post('/registro/novo', (req, res)=>{
     if(erros.length > 0){
         res.render('usuarios/registro', {erros: erros})
     }
-    
-
-    if(Usuario.findOne({email: req.body.email})){
-        erros.push({texto: 'Este e-mail já está cadastrado!'})
-    }
 
     else{
-        const novoUsuario = {
-            nome: req.body.nome,
-            email: req.body.email,
-            senha: req.body.senha
-        }
-        new Usuario (novoUsuario).save()
-        .then(()=>{
-            req.flash('success_msg', 'Usuário criado com sucesso!')
-            res.redirect('/')
+
+        Usuario.findOne({email: req.body.email}).then((usuario)=>{
+            if(usuario) {
+                req.flash('error_msg', 'Este e-mail já está em uso!')
+                res.redirect('/usuarios/registro')
+            }else{
+                const novoUsuario = {
+                    nome: req.body.nome,
+                    email: req.body.email,
+                    senha: req.body.senha
+                }
+
+                bcrypt.genSalt(10, (err, salt)=>{
+                    bcrypt.hash(novoUsuario.senha, salt, (err, hash)=>{
+                        if(err) {
+                            req.flash('error_msg', 'Houve um erro durante o salvamento! ' + err)
+                        }
+
+                        novoUsuario.senha = hash
+
+                        new Usuario (novoUsuario).save().then(()=>{
+
+                            req.flash('success_msg', 'Usuário criado com sucesso!')
+                            res.redirect('/')
+        
+                        })
+                        .catch((err)=>{
+        
+                            req.flash('error_msg', 'Houve um erro ao criar usuário, tente novamente!')
+                            console.log(err)
+                            
+                        })
+                    
+                    })
+                })
+            }
+        }).catch((err)=>{
+            req.flash('error_msg', 'Houve um erro interno! ' + err)
+            res.redirect('/usuarios/registro')
         })
-        .catch((err)=>{
-            req.flash('error_msg', 'Houve um erro ao criar usuário, tente novamente!')
-            console.log(err)
-        })
+
     }
-    })
 })
 
 router.get('/login', (req, res) => {
