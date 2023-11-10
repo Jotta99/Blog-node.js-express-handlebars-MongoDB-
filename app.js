@@ -3,26 +3,36 @@ const handlebars = require('express-handlebars')
 const mongoose = require('mongoose')
 const app = express()
 const PORT = 3000
-const admin = require('./routes/admin')
-const usuarios = require('./routes/usuarios') // Importando arquivo de rotas admin
-const path = require('path') // Importando arquivo de rotas usuarios
+const admin = require('./routes/admin') // Importando arquivo de rotas admin
+const usuarios = require('./routes/usuarios') // Importando arquivo de rotas usuarios
+const path = require('path') 
 const session = require('express-session')
 const flash = require('connect-flash')
 const multer = require('multer')
+const passport = require('passport')
+require('./config/auth')(passport)
 
 // Configs
-    // Session
+    // Session (é muito importante que esta parte de session fique configurada nesta ordem, session, passport e flash)
     app.use(session({
         secret: 'cursodenode',
         resave: true,
         saveUninitialized: true
     }))
+
+    // Passport
+    app.use(passport.initialize())
+    app.use(passport.session())
+
+    // Flash
     app.use(flash())
     
     //Middleware
     app.use((req, res, next)=>{
         res.locals.success_msg = req.flash('success_msg')
         res.locals.error_msg = req.flash('error_msg')
+        res.locals.error = req.flash('error')
+        res.locals.success = req.flash('success')
         next()
     })
 

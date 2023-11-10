@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
 // Model Config
 require('../models/Usuario')
@@ -85,31 +86,12 @@ router.get('/login', (req, res) => {
     res.render('usuarios/login')
 })
 
-router.post('/login/account', (req, res) => {
-
-    var erros = []
-
-    if(!req.body.email || typeof req.body.email == undefined || req.body.email == null){
-        erros.push({texto: 'Email inválido'})
-    }
-    
-    if(req.body.senha.length < 5 || !req.body.senha || typeof req.body.senha == undefined || req.body.senha == null){
-        erros.push({texto: 'Senha inválida.'})
-    }
-    
-    if(erros.length > 0){
-        res.render('usuarios/login', {erros: erros})
-    }
-    
-    else{
-        Usuario.findOne({email: req.body.email, senha: req.body.senha}).then((usuario) => {
-            req.flash('success_msg', `Bem-vindo! ${usuario.nome}`)
-            res.redirect('/')
-        }).catch((err) => {
-            req.flash('error_msg', 'Este usuário não existe, cadastre uma conta!')
-            res.redirect('/usuarios/login')
-        })
-    }
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect:'/',
+        failureRedirect: '/usuarios/login',
+        failureFlash: true
+    })(req, res, next)
 })
 
 

@@ -14,13 +14,19 @@ router.get('/', (req, res)=>{
     res.render('admin/index')
 })
 
-router.get('/posts', (req, res)=>{
-    res.send('Página de posts')
-})
-
 router.get('/usuarios', (req, res) => {
     Usuario.find().lean().sort({date: 'desc'}).then((usuarios) => {
         res.render('admin/usuarios', {usuarios: usuarios})
+    })
+})
+
+router.get('/usuarios/delete/:id', (req, res) =>{
+    Usuario.findOneAndDelete({_id: req.params.id}).lean().then((usuario)=>{
+        req.flash('success_msg', 'Sucesso ao deletar usuário')
+        res.redirect('/admin/usuarios')
+    }).catch((err)=>{
+        req.flash('error_msg', 'Erro ao deletar usuário')
+        res.redirect('/admin/usuarios')
     })
 })
 
