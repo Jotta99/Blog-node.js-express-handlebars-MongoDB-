@@ -12,7 +12,7 @@
         <form action="/admin/usuarios/edit" method="post">
             <input type="text" class="form-control" id="id" value="{{usuario._id}}" style="display: none;" name="id">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.nome}}">
+                <input type="text" class="form-control" id="floatingInputDisabled" name="nome" disabled value="{{usuario.nome}}">
                 <label for="floatingInputDisabled">Nome</label>
             </div>
             <div class="form-floating mb-3">
@@ -26,7 +26,7 @@
             <div class="form-floating mb-3">
             <select class="form-select" id="eadmin" aria-label="Floating label select example" name="eadmin">
                 <option selected>Selecione o Nível de Acesso</option>
-                <option value="0">Usuário</option>
+                <option selected value="0">Usuário</option>
                 <option value="1">Admin</option>
             </select>
             <label for="floatingSelect">Nível de acesso</label>

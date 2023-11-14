@@ -31,13 +31,20 @@ router.get('/usuarios/edit/:id', eAdmin, (req, res) => {
 })
 
 router.post('/usuarios/edit', eAdmin, (req, res)=>{
+
     Usuario.findOneAndUpdate({_id: req.body.id}, {eAdmin: req.body.eadmin})
     .then((usuario)=>{
-        req.flash('success_msg', 'Usuário editado com sucesso!')
-        res.redirect('/admin/usuarios')            
+        if(req.body.eadmin == 0) {
+            msg = `Nível de acesso de ${usuario.nome} trocado para Usuário`
+        }
+        else {
+            msg = `Nível de acesso de ${usuario.nome} trocado para Administrador`
+        }
+        req.flash('success_msg', msg)
+        res.redirect('/admin/usuarios')       
         
     }).catch((err)=>{
-        req.flash('error_msg', 'Houve um erro ao alterar esse usuário')
+        req.flash('error_msg', 'Houve um erro ao alterar esse usuário' + err)
         res.redirect('/admin/usuarios')
     })
 })
