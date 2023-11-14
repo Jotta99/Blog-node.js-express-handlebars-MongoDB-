@@ -10,6 +10,7 @@
     <div class="card-body">
         <h2>Editar acesso do Usuário</h2>
         <form action="/admin/usuarios/edit" method="post">
+            <input type="text" class="form-control" id="id" value="{{usuario._id}}" style="display: none;" name="id">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.nome}}">
                 <label for="floatingInputDisabled">Nome</label>
@@ -22,16 +23,16 @@
                 <input type="text" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.nick}}">
                 <label for="floatingInputDisabled">Nickname</label>
             </div>
-            <div class="form-floating">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="eAdmin">
-                <option selected>Selecione o Nível de acesso</option>
-                <option value="1">Usuário</option>
-                <option value="2">Admin</option>
+            <div class="form-floating mb-3">
+            <select class="form-select" id="eadmin" aria-label="Floating label select example" name="eadmin">
+                <option selected>Selecione o Nível de Acesso</option>
+                <option value="0">Usuário</option>
+                <option value="1">Admin</option>
             </select>
             <label for="floatingSelect">Nível de acesso</label>
             </div>
                 <br>
-            <button type="submit" class="btn btn-dark mt-2">Salvar alteração</button>
+            <button type="submit" class="btn btn-dark mt-2">Salvar Alteração</button>
         </form>
     </div>
 </div>

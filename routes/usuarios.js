@@ -109,6 +109,14 @@ router.get('/edit/:id', (req, res) => {
     })
 })
 
-router.post('/edit', (req, res)=>{})
+router.post('/edit', (req, res)=>{res.send('Não há nada aqui')})
+
+router.get('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      req.flash('success_msg', 'Você saiu da sua conta')
+      res.redirect('/');
+    });
+  });
 
 module.exports = router;
