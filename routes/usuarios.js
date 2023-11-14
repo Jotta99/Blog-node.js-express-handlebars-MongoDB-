@@ -33,6 +33,10 @@ router.post('/registro/novo', (req, res)=>{
         erros.push({texto: 'As senhas não são iguais. Por favor, preencha novamente!'})
     }
     
+    if(!req.body.nick || typeof req.body.nick == undefined || req.body.nick == null){
+        erros.push({texto: 'Por favor, escolha um Nickname'})
+    }
+    
     if(erros.length > 0){
         res.render('usuarios/registro', {erros: erros})
     }
@@ -47,7 +51,8 @@ router.post('/registro/novo', (req, res)=>{
                 const novoUsuario = {
                     nome: req.body.nome,
                     email: req.body.email,
-                    senha: req.body.senha
+                    nick: req.body.nick,
+                    senha: req.body.senha,
                 }
 
                 bcrypt.genSalt(10, (err, salt)=>{
@@ -87,6 +92,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res, next) => {
+    Usuario.find()
     passport.authenticate('local', {
         successRedirect:'/',
         failureRedirect: '/usuarios/login',
@@ -94,5 +100,76 @@ router.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
+router.get('/edit/:id', (req, res) => {
+    Usuario.findOne({_id:req.params.id}).then((usuario)=>{
+        res.render('usuarios/editaccount', {usuario: usuario})
+    }).catch((err)=>{
+        req.flash('error_msg', ' Deu Errado')
+        res.redirect('/')
+    })
+})
+
+router.post('/edit', (req, res)=>{
+    var erros = []
+
+    if(req.body.nome.length < 6 || !req.body.nome || typeof req.body.nome == undefined || req.body.nome == null){
+        erros.push({texto: 'Nome inválido. Mínimo de caracteres: 6'})
+    }
+    
+    if(!req.body.email || typeof req.body.email == undefined || req.body.email == null){
+        erros.push({texto: 'Email inválido'})
+    }
+    
+    if(req.body.senha.length < 5 || !req.body.senha || typeof req.body.senha == undefined || req.body.senha == null){
+        erros.push({texto: 'Senha inválida. Mínimo de caracteres: 6'})
+    }
+
+    if(req.body.senha !== req.body.senha2){
+        erros.push({texto: 'As senhas não são iguais. Por favor, preencha novamente!'})
+    }
+    
+    if(!req.body.nick || typeof req.body.nick == undefined || req.body.nick == null){
+        erros.push({texto: 'Por favor, escolha um Nickname'})
+    }
+    
+    if(erros.length > 0){
+        res.render('usuarios/registro', {erros: erros})
+    }
+
+    else{
+    
+                const novoUsuario = {
+                    nome: req.body.nome,
+                    email: req.body.email,
+                    nick: req.body.nick,
+                    senha: req.body.senha
+                }
+
+                bcrypt.genSalt(10, (err, salt)=>{
+                    bcrypt.hash(novoUsuario.senha, salt, (err, hash)=>{
+                        if(err) {
+                            req.flash('error_msg', 'Houve um erro durante o salvamento! ' + err)
+                        }
+
+                        novoUsuario.senha = hash
+
+                        new Usuario (novoUsuario).save().then(()=>{
+
+                            req.flash('success_msg', 'Usuário editado com sucesso!')
+                            res.redirect('/')
+        
+                        })
+                        .catch((err)=>{
+        
+                            req.flash('error_msg', 'Houve um erro ao editar usuário, tente novamente!')
+                            console.log(err)
+                            
+                        })
+                    
+                    })
+                })
+            }
+        })
+        
 
 module.exports = router;

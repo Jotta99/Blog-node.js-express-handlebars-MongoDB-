@@ -35,12 +35,17 @@ function DatesNow(month) {
 
 const atualDate = `${day} de ${DatesNow(month)} de ${year} às ${hour}:${minutes}`
 
+
 const Usuario = new Schema({
     nome:{
         type: String,
         require: true
     },
     email:{
+        type: String,
+        require: true
+    },
+    nick:{
         type: String,
         require: true
     },

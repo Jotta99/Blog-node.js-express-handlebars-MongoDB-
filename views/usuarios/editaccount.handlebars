@@ -1,0 +1,73 @@
+{{#each erros}}
+    <div class="alert alert-danger" role="alert">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="container">
+    <h1>Edite sua Conta</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/250" class="avatar img-circle" alt="avatar">
+          <h6>Adicione uma foto nova</h6>
+
+          <input type="file" class="form-control">
+        </div>
+      </div>
+      
+      <div class="col-md-9 personal-info">
+        
+        <h3>Informações da conta</h3>
+        
+        <form action="/usuarios/edit" method="post" class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nome:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="{{user.nome}}" name="nome">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="{{user.email}}" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Nickname:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="text" value="{{user.nick}}" name="nick">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Senha:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="" name="senha">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirme a Senha:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="" name="senha2">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <button type="submit" class="btn btn-dark">Salvar Alterações</button>
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancelar">
+            </div>
+          </div>
+        </form>
+        <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+            <input type="reset" class="btn btn-dark" value="Deletar Conta">
+        </div>
+      </div>
+  </div>
+</div>
+<hr>
