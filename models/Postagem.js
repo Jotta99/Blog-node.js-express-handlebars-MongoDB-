@@ -7,47 +7,34 @@ const Schema = mongoose.Schema;
 var date = new Date()
 var day = date.getDate()
 var month = date.getMonth() + 1;
+
+var date = new Date()
+var day = date.getDate()
+var month = date.getMonth() + 1;
 var year = date.getFullYear()
-var arrMonth = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+var hour = date.getHours()
+var minutes = date.getMinutes()
 
-if(month === 1){
-month = arrMonth[0]
-}
-if(month === 2){
-  month = arrMonth[1]
-}
-if(month === 3){
-  month = arrMonth[2]
-}
-if(month === 4){
-  month = arrMonth[3]
-}
-if(month === 5){
-  month = arrMonth[4]
-}
-if(month === 6){
-  month = arrMonth[5]
-}
-if(month === 7){
-  month = arrMonth[6]
-}
-if(month === 8){
-  month = arrMonth[7]
-}
-if(month === 9){
-  month = arrMonth[8]
-}
-if(month === 10){
-  month = arrMonth[9]
-}
-if(month === 11){
-  month = arrMonth[10]
-}
-if(month === 12){
-  month = arrMonth[11]
+function DatesNow(month) {
+
+  const Months = {
+    1: 'Janeiro',
+    2: 'Fevereiro',
+    3: 'Março',
+    4: 'Abril',
+    5: 'Maio',
+    6: 'Junho',
+    7: 'Julho',
+    8: 'Agosto',
+    9: 'Setembro',
+    10: 'Outubro',
+    11: 'Novembro',
+    12: 'Dezembro'
+  }
+  return Months[month] || Months.default
 }
 
-const atualDate = `${day} de ${month} de ${year}`
+const atualDate = `${day} de ${DatesNow(month)} de ${year} às ${hour}:${minutes}`
 
 const Postagem = new Schema({
     titulo: {
