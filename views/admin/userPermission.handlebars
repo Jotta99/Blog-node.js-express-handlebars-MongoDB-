@@ -1,0 +1,38 @@
+{{msg_success}}
+
+{{#each erros}}
+    <div class="alert alert-danger" role="alert">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded">
+    <div class="card-body">
+        <h2>Editar acesso do Usuário</h2>
+        <form action="/admin/usuarios/edit" method="post">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.nome}}">
+                <label for="floatingInputDisabled">Nome</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.email}}">
+                <label for="floatingInputDisabled">E-mail</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInputDisabled" disabled value="{{usuario.nick}}">
+                <label for="floatingInputDisabled">Nickname</label>
+            </div>
+            <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="eAdmin">
+                <option selected>Selecione o Nível de acesso</option>
+                <option value="1">Usuário</option>
+                <option value="2">Admin</option>
+            </select>
+            <label for="floatingSelect">Nível de acesso</label>
+            </div>
+                <br>
+            <button type="submit" class="btn btn-dark mt-2">Salvar alteração</button>
+        </form>
+    </div>
+</div>
+
