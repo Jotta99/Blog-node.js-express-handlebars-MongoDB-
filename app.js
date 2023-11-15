@@ -2,7 +2,7 @@ const express = require('express')
 const handlebars = require('express-handlebars')
 const mongoose = require('mongoose')
 const app = express()
-const PORT = 3000
+const PORT = 3000 || process.env.PORT
 const admin = require('./routes/admin') // Importando arquivo de rotas admin
 const usuarios = require('./routes/usuarios') // Importando arquivo de rotas usuarios
 const path = require('path') 
@@ -10,6 +10,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const multer = require('multer')
 const passport = require('passport')
+
 require('./config/auth')(passport)
 
 // Configs
@@ -56,7 +57,7 @@ require('./config/auth')(passport)
 
     // Mongoose
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/blogapp', {
+    mongoose.connect(`mongodb+srv://Jotta99:${process.env.dbpassword}@cluster0.x52do9i.mongodb.net/?retryWrites=true&w=majority`, {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
     })
