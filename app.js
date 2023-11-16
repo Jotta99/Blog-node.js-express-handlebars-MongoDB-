@@ -10,10 +10,10 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const multer = require('multer')
 const passport = require('passport')
+require('dotenv/config');
 const link = process.env.DB_LINK
 
 require('./config/auth')(passport)
-require('dotenv/config');
 
 // Configs
     // Session (é muito importante que esta parte de session fique configurada nesta ordem, session, passport e flash)
