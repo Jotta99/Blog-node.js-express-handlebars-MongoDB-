@@ -37,6 +37,3 @@ passport.deserializeUser((id,done)=>{
     })
  })
 }
-
-module.exports.salt= function(){
-return bcrypt.genSaltSync(saltRounds); }
