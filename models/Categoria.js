@@ -40,10 +40,6 @@ const Categoria = new Schema({
         type: String,
         require: true
     },
-    slug: {
-        type: String,
-        require: true
-    },
     date: {
         type: String,
         default: atualDate,

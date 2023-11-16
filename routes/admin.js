@@ -81,18 +81,13 @@ router.post('/categorias/nova', eAdmin, (req, res)=>{
         erros.push({texto: 'Mínimo de caracteres: 6'})
     }
 
-    if(!req.body.slug || typeof req.body.slug === undefined || req.body.slug === null){
-        erros.push({texto: 'Slug inválido'})
-    }
-
     if(erros.length > 0){
         res.render('admin/addcategorias', {erros: erros})
     }
 
     else{
         const novaCategoria = {
-            nome: req.body.nome,
-            slug: req.body.slug,
+            nome: req.body.nome
         }
         new Categoria (novaCategoria).save()
         .then(()=>{
@@ -119,7 +114,6 @@ router.post('/categorias/edit', eAdmin, (req, res)=>{
     Categoria.findOne({_id: req.body.id}).then((categoria)=>{
         
         categoria.nome = req.body.nome
-        categoria.slug = req.body.slug
 
         categoria.save().then(()=>{
             req.flash('success_msg', 'Categoria editada com sucesso!')
@@ -168,10 +162,6 @@ router.post('/postagens/nova', eAdmin, (req, res)=>{
         erros.push({texto: 'Mínimo de caracteres: 5'})
     }
 
-    if(!req.body.slug || typeof req.body.slug === undefined || req.body.slug === null){
-        erros.push({texto: 'Slug inválido'})
-    }
-
     if(!req.body.descricao || typeof req.body.descricao === undefined || req.body.descricao === null){
         erros.push({texto: 'Descrição inválida'})
     }
@@ -201,8 +191,7 @@ router.post('/postagens/nova', eAdmin, (req, res)=>{
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
-            categoria: req.body.categoria,
-            slug: req.body.slug,
+            categoria: req.body.categoria
         }
         new Postagem (novaPostagem).save()
         .then(()=>{
@@ -244,7 +233,6 @@ router.post('/postagens/edit', eAdmin, (req, res) => {
     Postagem.findOne({_id: req.body.id}).then((postagem)=>{
         
         postagem.titulo = req.body.titulo
-        postagem.slug = req.body.slug
         
         postagem.save().then(()=>{
             req.flash('success_msg', 'Categoria editada com sucesso!')
