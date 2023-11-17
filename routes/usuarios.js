@@ -109,7 +109,23 @@ router.get('/edit/:id', (req, res) => {
     })
 })
 
-router.post('/edit', (req, res)=>{res.send('Não há nada aqui')})
+router.post('/edit', (req, res)=>{
+
+    Usuario.findOneAndUpdate({_id: req.body.id}, {
+        nome: req.body.nome,
+        email: req.body.email,
+        nick: req.body.nick
+    })
+    .then((usuario)=>{
+        req.flash('success_msg', 'As informações da sua conta foram alteradas com sucesso')
+        res.redirect('/')       
+
+    }).catch((err)=>{
+        req.flash('error_msg', 'Houve um erro ao alterar esse usuário' + err)
+        res.redirect('/')
+    })
+
+})
 
 router.get('/logout', function(req, res, next) {
     req.logout(function(err) {

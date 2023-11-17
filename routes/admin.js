@@ -37,10 +37,10 @@ router.post('/usuarios/edit', eAdmin, (req, res)=>{
     Usuario.findOneAndUpdate({_id: req.body.id}, {eAdmin: req.body.eadmin})
     .then((usuario)=>{
         if(req.body.eadmin == 0) {
-            msg = `Nível de acesso de ${usuario.nome} trocado para Usuário`
+            msg = `Agora ${usuario.nome} tem apenas permissões de usuário comum`
         }
         else {
-            msg = `Nível de acesso de ${usuario.nome} trocado para Administrador`
+            msg = `Agora ${usuario.nome} tem permissões de Administrador`
         }
         req.flash('success_msg', msg)
         res.redirect('/admin/usuarios')       
