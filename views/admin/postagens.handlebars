@@ -1,3 +1,5 @@
+<div style="margin-top: 8rem !important;"></div>
+        {{>_msg}}
 {{msg_success}}
 
 <h2>Postagens</h2>
@@ -10,9 +12,9 @@
             <h4>{{titulo}}</h4>
             <small><strong>Descrição:</strong> {{descricao}}</small>
             <br>
-            <small><strong>Data de criação:</strong> {{date}}</small>
+            <small><strong>Postado por:</strong> {{autorPostUser}}</small>
             <br>
-            <small><strong>Categoria:</strong> {{categoria.nome}}</small>
+            <small><strong>Data de postagem:</strong> {{date}}</small>
             <hr>
             <a href="/admin/postagens/edit/{{_id}}"><button type="button" class="btn btn-dark">Editar</button></a>
             <a href="/admin/postagens/delete/{{_id}}"><button type="button" class="btn btn-dark">Apagar</button></a>

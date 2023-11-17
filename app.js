@@ -5,6 +5,7 @@ const app = express()
 const PORT = 3000 || process.env.PORT
 const admin = require('./routes/admin') // Importando arquivo de rotas admin
 const usuarios = require('./routes/usuarios') // Importando arquivo de rotas usuarios
+const contato = require('./routes/contato') // Importando arquivo de rotas contato
 const path = require('path') 
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -78,6 +79,9 @@ require('./config/auth')(passport)
     require('./models/Usuario')
     const Usuario = mongoose.model('usuarios')
 
+    require('./models/Contato')
+    const Contato = mongoose.model('mensagens')
+
     // Public
     app.use(express.static(path.join(__dirname, 'public')))
 
@@ -97,14 +101,6 @@ app.get('/', (req, res)=>{
         res.redirect("/")
     })
 })
-
-app.get('/categorias', (req, res) => 
-    Categoria.find().then((categorias)=>{
-        res.render('categorias/index', {categorias: categorias})
-    }).catch((err)=>{
-        req.flash('error_msg', 'Houve um erro interno ao listar as categorias')
-        res.redirect('/')
-    }))
 
 app.get('/categorias/:id', (req, res) => {
     Categoria.findOne({_id: req.params.id}).then((categoria) => {
@@ -127,14 +123,6 @@ app.get('/categorias/:id', (req, res) => {
     })
 })
 
-app.get('/postagens', (req, res) =>
-    Postagem.find().then((postagens)=>{
-        res.render('postagens/index', {postagens: postagens})
-    }).catch((err)=>{
-        req.flash('error_msg', 'Houve um erro interno ao listar as postagens' + err)
-        res.redirect('/')
-}))
-
 app.get('/postagem/:id', (req, res) =>{
     Postagem.findOne({_id: req.params.id}).lean().then((postagem) =>{
         res.render('postagens/postagempage', {postagem: postagem})
@@ -146,6 +134,7 @@ app.get('/postagem/:id', (req, res) =>{
 
 app.use('/admin', admin)
 app.use('/usuarios', usuarios)
+app.use('/contato', contato)
 
 // Outros
 app.listen(PORT, ()=>{

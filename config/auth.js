@@ -33,7 +33,7 @@ passport.deserializeUser((id,done)=>{
     Usuario.findById(id).then((usuario)=>{
         done(null,usuario)
     }).catch((err)=>{
-         done (null,false,{message:'algo deu errado'})
+         done (null,false,{message:'Algo deu errado'})
     })
  })
 }

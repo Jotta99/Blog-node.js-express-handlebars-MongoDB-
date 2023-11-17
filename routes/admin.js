@@ -10,6 +10,8 @@ require('../models/Postagem')
 const Postagem = mongoose.model('postagens')
 require('../models/Usuario')
 const Usuario = mongoose.model('usuarios')
+require('../models/Contato')
+const Contato = mongoose.model('mensagens')
 
 router.get('/', eAdmin, (req, res)=>{
     res.render('admin/index')
@@ -191,7 +193,8 @@ router.post('/postagens/nova', eAdmin, (req, res)=>{
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
-            categoria: req.body.categoria
+            categoria: req.body.categoria,
+            autorPostUser: req.body.autorPostUser
         }
         new Postagem (novaPostagem).save()
         .then(()=>{

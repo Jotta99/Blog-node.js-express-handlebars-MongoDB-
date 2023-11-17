@@ -35,34 +35,29 @@ function DatesNow(month) {
 
 const atualDate = `${day} de ${DatesNow(month)} de ${year} às ${hour}:${minutes}`
 
-const Postagem = new Schema({
-    titulo: {
+const Contato = new Schema({
+    nome: {
         type: String,
         require: true
     },
-    descricao: {
+    email: {
         type: String,
         require: true
     },
-    conteudo: {
+    numerotel: {
         type: String,
-        require: true
+        require: true,
+        default: 'Sem número'
     },
-    categoria: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'categorias',
-        require: true
-    },
-    autorPostUser: {
+    mensagem: {
         type: String,
         require: true
     },
     date: {
         type: String,
         default: atualDate,
-    },
+    }
 })
 
-mongoose.model('postagens', Postagem)
-
-module.exports = Postagem
+mongoose.model('mensagens', Contato)
+module.exports = Contato;

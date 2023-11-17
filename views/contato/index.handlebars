@@ -1,0 +1,49 @@
+<div style="margin-top: 5rem !important;"></div>
+        <header class="masthead" style="background-image: url('/img/contact-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Fale comigo</h1>
+                            <span class="subheading">Você tem algumas dúvidas?.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>Prencha os dados abaixo para a sua mensagem chegar até a mim, e logo eu estarei entrando em contato :)</p>
+                        <div class="my-5">
+                                    {{>_msg}}
+                            <form id="contactForm" action="/contato/mensagem" method="post">
+                                <div class="form-floating">
+                                    <input class="form-control" id="name" type="text" placeholder="Qual o seu nome?" data-sb-validations="required" name="nome"/>
+                                    <label for="name">Nome</label>
+                                    <div class="invalid-feedback" data-sb-feedback="name:required">É necessário informar um nome.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="email" type="email" name="email" placeholder="Qual o seu email?" data-sb-validations="required,email" />
+                                    <label for="email">Endereço de email</label>
+                                    <div class="invalid-feedback" data-sb-feedback="email:required">É necessário informar um email.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="phone" type="tel" name="numerotel" placeholder="Qual o seu número para contato? (Opcional)"/>
+                                    <label for="phone">Número de telefone</label>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" name="mensagem" placeholder="Escreva sua mensagem aqui" style="height: 12rem" data-sb-validations="required"></textarea>
+                                    <label for="message">Mensagem</label>
+                                    <div class="invalid-feedback" data-sb-feedback="message:required">É necessário escrever uma mensagem.</div>
+                                </div>
+                                <br />
+                                <button class="btn btn-dark text-uppercase" id="submitButton" type="submit">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>

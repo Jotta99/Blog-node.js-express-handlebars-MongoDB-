@@ -1,12 +1,13 @@
-{{msg_success}}
 
-{{#each erros}}
-    <div class="alert alert-danger" role="alert">{{texto}}</div>
-{{else}}
 
-{{/each}}
+<div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded" style="margin-top: 8rem !important;">
+    {{msg_success}}
+    {{#each erros}}
+        <div class="alert alert-danger" role="alert">{{texto}}</div>
+    {{else}}
 
-<div class="card mt-4 shadow-sm p-3 mb-2 bg-body-tertiary rounded">
+    {{/each}}
+
     <div class="card-body">
         <h2>Login</h2>
         <form action="/usuarios/login" method="post">
@@ -23,4 +24,5 @@
         </form>
     </div>
 </div>
+
 
