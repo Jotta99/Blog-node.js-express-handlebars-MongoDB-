@@ -3,6 +3,18 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
+const multer = require('multer')
+
+//Multer Config
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'uploads/')
+    },
+    filename: function(req, file, cb){
+        cb(null, file.originalname)
+    }
+})
+const upload = multer({storage})
 
 // Model Config
 require('../models/Usuario')
@@ -125,6 +137,11 @@ router.post('/edit', (req, res)=>{
         res.redirect('/')
     })
 
+})
+
+router.post('/photoupdate',upload.single('photo') , (req, res)=>{
+    req.flash('success_msg', 'Foto de perfil atualizada')
+    res.redirect('/')
 })
 
 router.get('/logout', function(req, res, next) {

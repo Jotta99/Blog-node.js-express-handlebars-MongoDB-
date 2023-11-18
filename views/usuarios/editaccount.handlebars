@@ -10,17 +10,20 @@
 <div class="container">
     <h1>Edite sua Conta</h1>
   	<hr>
-	<div class="row">
-      <!-- left column -->
+    <form action="/usuarios/photoupdate" enctype="multipart/form-data" method="post">
+	  <div class="row">
       <div class="col-md-3">
         <div class="text-center">
           <img src="//placehold.it/250" class="avatar img-circle" alt="avatar">
           <h6 class="mt-1">Adicione uma foto nova</h6>
-
-          <input type="file" class="form-control">
+          <input type="file" class="form-control" name="photo">
+          <br>
+          <button type="submit" class="btn btn-dark">Salvar Foto de Perfil</button>
         </div>
       </div>
-      
+
+    </form>
+
       <div class="col-md-9 personal-info">
         
         <h3>Informações da conta</h3>
@@ -51,14 +54,10 @@
               <button type="submit" class="btn btn-dark">Salvar Alterações</button>
               <span></span>
               <input type="reset" class="btn btn-default" value="Cancelar">
+              <input type="reset" class="btn btn-dark" value="Deletar Conta">
             </div>
           </div>
         </form>
-        <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-            <input type="reset" class="btn btn-dark" value="Deletar Conta">
-        </div>
       </div>
   </div>
 </div>
