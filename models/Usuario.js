@@ -45,6 +45,10 @@ const Usuario = new Schema({
         type: String,
         require: true
     },
+    numerotel:{
+        type: String,
+        require: true
+    },
     nick:{
         type: String,
         require: true

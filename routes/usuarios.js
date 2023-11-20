@@ -63,6 +63,7 @@ router.post('/registro/novo', (req, res)=>{
                 const novoUsuario = {
                     nome: req.body.nome,
                     email: req.body.email,
+                    numerotel: req.body.numerotel,
                     nick: req.body.nick,
                     senha: req.body.senha,
                 }
@@ -126,7 +127,8 @@ router.post('/edit', (req, res)=>{
     Usuario.findOneAndUpdate({_id: req.body.id}, {
         nome: req.body.nome,
         email: req.body.email,
-        nick: req.body.nick
+        nick: req.body.nick,
+        numerotel: req.body.numerotel
     })
     .then((usuario)=>{
         req.flash('success_msg', 'As informações da sua conta foram alteradas com sucesso')
