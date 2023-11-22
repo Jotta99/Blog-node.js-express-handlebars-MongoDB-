@@ -6,10 +6,6 @@ const Schema = mongoose.Schema;
 var date = new Date()
 var day = date.getDate()
 var month = date.getMonth() + 1;
-
-var date = new Date()
-var day = date.getDate()
-var month = date.getMonth() + 1;
 var year = date.getFullYear()
 var hour = date.getHours()
 var minutes = date.getMinutes()
