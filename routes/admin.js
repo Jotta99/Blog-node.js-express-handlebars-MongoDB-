@@ -2,14 +2,15 @@ const express = require('express')
 const router = express.Router()
 const {eAdmin} = require('../helpers/eAdmin')
 
-// Usado o mongoose de forma externa
+// Usando o mongoose de forma externa
 const mongoose = require('mongoose')
-require('../models/Categoria')
+
 const Categoria = mongoose.model('categorias')
-require('../models/Postagem')
+require('../models/Categoria')
 const Postagem = mongoose.model('postagens')
-require('../models/Usuario')
+require('../models/Postagem')
 const Usuario = mongoose.model('usuarios')
+require('../models/Usuario')
 
 router.get('/', eAdmin, (req, res)=>{
     res.render('admin/index')
